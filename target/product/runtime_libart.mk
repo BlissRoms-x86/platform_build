@@ -92,8 +92,13 @@ PRODUCT_SYSTEM_PROPERTIES += \
     dalvik.vm.dexopt.thermal-cutoff=2 \
     dalvik.vm.appimageformat=lz4
 
-PRODUCT_SYSTEM_PROPERTIES += \
-    ro.dalvik.vm.native.bridge=0
+ifeq ($(USE_LIBNDK_TRANSLATION_NB),true)
+PRODUCT_SYSTEM_PROPERTIES += ro.dalvik.vm.native.bridge.ag=libndk_translation.so
+else ifeq ($(USE_CROS_HOUDINI_NB),true)
+PRODUCT_SYSTEM_PROPERTIES += ro.dalvik.vm.native.bridge.ag=libhoudini.so
+else
+PRODUCT_SYSTEM_PROPERTIES += ro.dalvik.vm.native.bridge=0
+endif
 
 # Different dexopt types for different package update/install times.
 # On eng builds, make "boot" reasons only extract for faster turnaround.
