@@ -654,7 +654,6 @@ function print_lunch_menu()
 function lunch()
 {
     local answer
-    checkofficial $target
 
     if [[ $# -gt 1 ]]; then
         echo "usage: lunch [target]" >&2
